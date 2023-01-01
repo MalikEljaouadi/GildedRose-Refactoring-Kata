@@ -1,4 +1,31 @@
 # -*- coding: utf-8 -*-
+class Updater(object):
+
+    def normal_item(self, item):
+        if item.quality > 0:
+            item.quality -= 1
+        if item.sell_in < 1 and item.quality > 0:
+            item.quality -= 1
+
+    def aged_brie(self, item):
+        if item.quality < 50:
+            item.quality += 1
+        if item.sell_in < 1 and item.quality < 50:
+            item.quality += 1
+
+    def sulfuras(self, item):
+        pass
+
+    def backstage_passes(self, item):
+        if item.quality < 50:
+            item.quality += 1
+        if item.sell_in < 11 and item.quality < 50:
+            item.quality += 1
+        if item.sell_in < 6 and item.quality < 50:
+            item.quality += 1
+        if item.sell_in < 1:
+            item.quality = 0
+
 
 class GildedRose(object):
 
@@ -6,28 +33,16 @@ class GildedRose(object):
         self.items = items
 
     def update_quality(self):
+        updater = Updater()
         for item in self.items:
             if item.name == "Sulfuras, Hand of Ragnaros":
-                continue
+                updater.sulfuras(item)
             if item.name == "Aged Brie":
-                if item.quality < 50:
-                    item.quality += 1
-                if item.sell_in < 1 and item.quality < 50:
-                    item.quality += 1
+                updater.aged_brie(item)
             elif item.name == "Backstage passes to a TAFKAL80ETC concert":
-                if item.quality < 50:
-                    item.quality += 1
-                if item.sell_in < 11 and item.quality < 50:
-                    item.quality += 1
-                if item.sell_in < 6 and item.quality < 50:
-                    item.quality += 1
-                if item.sell_in < 1:
-                    item.quality = 0
+                updater.backstage_passes(item)
             else:
-                if item.quality > 0:
-                    item.quality -= 1
-                if item.sell_in < 1 and item.quality > 0:
-                    item.quality -= 1
+                updater.normal_item(item)
             item.sell_in -= 1
 
 
