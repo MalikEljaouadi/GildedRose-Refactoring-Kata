@@ -28,10 +28,10 @@ class GildedRose(object):
                     if item.quality < 50:
                         item.quality = item.quality + 1
                 elif item.name == "Backstage passes to a TAFKAL80ETC concert":
-                        item.quality = item.quality - item.quality
+                    item.quality = item.quality - item.quality
                 else:
-                    if item.quality > 0:
-                        if item.name != "Sulfuras, Hand of Ragnaros":
+                    if item.name != "Sulfuras, Hand of Ragnaros":
+                        if item.quality > 0:
                             item.quality = item.quality - 1
 
 
